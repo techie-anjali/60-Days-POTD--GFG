@@ -1,0 +1,27 @@
+Missing Element in Range
+- 19th feb 2026
+Given an array arr[] of integers and a range [low, high], find all the numbers within the range that are not present in the array. return the missing numbers in sorted order.
+Example
+Input: arr[] = [10, 12, 11, 15], low = 10, high = 15
+Output: [13, 14]
+
+
+code :
+
+class Solution {
+    public ArrayList<Integer> missingRange(int[] arr, int low, int high) {
+        // code here
+        HashSet<Integer>hs=new HashSet<>();
+        for(int i=0;i<arr.length;i++){
+             hs.add(arr[i]);
+             
+        }
+        ArrayList<Integer> ans=new ArrayList<>();
+        for(int i=low;i<=high;i++){
+            if(!hs.contains(i)){
+                ans.add(i);
+            }
+        }
+        return ans;
+    }
+}
