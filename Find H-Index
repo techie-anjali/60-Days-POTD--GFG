@@ -1,0 +1,37 @@
+Find H-Index
+
+What is citations?
+A citation means:
+
+How many times other people referred to (used or mentioned) your research paper in their own research.
+
+Imagine:
+
+You wrote a research paper.
+
+If:5 people use your paper in their research
+
+Then your paper has 5 citations; citations[i] = number of times paper i was referenced by others
+H-index tries to measure:“How many strong papers does a researcher have?”
+
+class Solution {
+    public int hIndex(int[] citations) {
+        Arrays.sort(citations);
+        
+        int count = 0;
+        int n = citations.length;
+        
+        for(int i = n - 1; i >= 0; i--) {
+            if(citations[i] > count) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        
+        return count;
+    }
+}
+
+
+
