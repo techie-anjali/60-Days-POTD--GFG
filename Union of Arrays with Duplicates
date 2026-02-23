@@ -1,0 +1,24 @@
+class Solution {
+    public static ArrayList<Integer> findUnion(int[] a, int[] b) {
+        
+        HashSet<Integer> set = new HashSet<>();
+        
+        // Add elements of array a
+        for(int i = 0; i < a.length; i++){
+            set.add(a[i]);
+        }
+        
+        // Add elements of array b
+        for(int i = 0; i < b.length; i++){
+            set.add(b[i]);
+        }
+        
+        // Convert set to ArrayList
+        ArrayList<Integer> result = new ArrayList<>(set);
+        
+        // Sort the result (if required)
+        Collections.sort(result);
+        
+        return result;
+    }
+}
