@@ -1,0 +1,66 @@
+//SOLVE THIS USING SLIDING WINDOW APPROACH 
+SLIDING WINDOW USES TWO LEFT AND RIGHT POINTER
+- left  → start of window
+right → end of window
+Sliding Window is a technique used to solve:
+Subarray problems
+Substring problems
+Contiguous sequence problems
+Efficiently in O(n) time instead of O(n²).
+
+
+GENERAL TEMPLATE 
+int left = 0;
+
+for (int right = 0; right < n; right++) {
+
+    // 1. Expand window
+    // include arr[right]
+
+    while (condition breaks) {
+        // 2. Shrink window
+        // remove arr[left]
+        left++;
+    }
+
+    // 3. Update answer
+}
+
+
+expand: right se
+shrink : left se
+
+class Solution {
+    public int totalElements(int[] arr) {
+        // code here
+        int left = 0;
+        int maxLen = 0;
+        HashMap<Integer, Integer> hs = new HashMap<>();
+    
+        for (int right = 0; right < arr.length; right++) {
+    
+        // 1. Add current element
+        hs.put(arr[right], hs.getOrDefault(arr[right], 0) + 1);
+    
+        // 2. Shrink if more than 2 distinct
+        while (hs.size() > 2) {
+    
+            hs.put(arr[left], hs.get(arr[left]) - 1);
+    
+            if (hs.get(arr[left]) == 0) {
+                hs.remove(arr[left]);
+            }
+    
+            left++;
+        }
+    
+        // 3. Update max length
+        maxLen = Math.max(maxLen, right - left + 1);
+    }
+    
+    return maxLen;
+        }
+    }
+
+
+
