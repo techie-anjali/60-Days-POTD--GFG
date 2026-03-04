@@ -1,0 +1,24 @@
+class Solution {
+    public int maxSubarrayXOR(int[] arr, int k) {
+        int n = arr.length;
+        
+        // Step 1: XOR of first k elements
+        int xor = 0;
+        for(int i = 0; i < k; i++){
+            xor ^= arr[i];
+        }
+        
+        int max = xor;
+        
+        // Step 2: Sliding window
+        for(int i = k; i < n; i++){
+            xor ^= arr[i - k];   // remove left element
+            xor ^= arr[i];       // add new element
+            max = Math.max(max, xor);
+        }
+        
+        return max;
+    }
+}
+
+optimized approach --with help of two pointer
