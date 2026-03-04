@@ -22,3 +22,26 @@ class Solution {
 }
 
 optimized approach --with help of two pointer
+
+
+BRUTE FORCE:
+
+class Solution {
+    public int maxSubarrayXOR(int[] arr, int k) {
+        int n = arr.length;
+        int max = 0;
+
+        for(int i = 0; i <= n - k; i++) {
+            int xor = 0;
+
+            // calculate xor for subarray of size k
+            for(int j = i; j < i + k; j++) {
+                xor ^= arr[j];
+            }
+
+            max = Math.max(max, xor);
+        }
+
+        return max;
+    }
+}
