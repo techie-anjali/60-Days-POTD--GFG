@@ -1,0 +1,22 @@
+class Solution {
+    static int noOfWays(int m, int n, int x) {
+         int MOD = 1000000007;
+        int[][] dp = new int[n + 1][x + 1];
+        dp[0][0]=1;
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<x+1;j++){
+                int ways=0;
+                for(int face=1;face<=m;face++){
+                    if(j>=face){
+                        ways=(ways+dp[i-1][j-face])%MOD;
+                    }
+                }
+                    dp[i][j]=ways;
+            }
+        }
+              return dp[n][x];
+            }
+        }
+        
+    
+still not optimized use slidingw window for optimization
