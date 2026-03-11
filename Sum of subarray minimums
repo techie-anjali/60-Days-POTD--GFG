@@ -1,0 +1,105 @@
+1. Generate All Subarrays (Brute Force)
+Idea
+
+Generate every subarray and find the minimum.
+
+Time Complexity
+
+Subarrays = 
+𝑛
+(
+𝑛
++
+1
+)
+/
+2
+n(n+1)/2
+
+Finding min each time = 
+𝑂
+(
+𝑛
+)
+O(n)
+
+Total = O(n³)
+
+Not practical for large n.
+2. Improved Brute Force
+
+Instead of recalculating minimum each time, update it while expanding the subarray.
+
+Idea
+start = i
+expand j
+update min = min(min, arr[j])
+Time Complexity
+
+O(n²)
+
+Code
+class Solution {
+    public int sumSubarrayMins(int[] arr) {
+        int n = arr.length;
+        int sum = 0;
+
+        for(int i = 0; i < n; i++){
+            int min = arr[i];
+
+            for(int j = i; j < n; j++){
+                min = Math.min(min, arr[j]);
+                sum += min;
+            }
+        }
+
+        return sum;
+    }
+}
+3. Monotonic Stack (Optimal)
+
+Instead of checking subarrays, calculate how many subarrays an element is the minimum for.
+
+Formula
+
+contribution = arr[i] × left × right
+
+Where
+
+left = distance to previous smaller element
+
+right = distance to next smaller element
+
+Time Complexity
+
+O(n)
+
+This is the best possible.
+
+You cannot do better than O(n) because you must read every element at least once.
+
+Final Comparison
+Approach	Time	Space
+Brute Force	O(n³)	O(1)
+Improved Brute	O(n²)	O(1)
+Monotonic Stack	O(n)	O(n)
+
+✅ Conclusion
+
+The stack solution is already optimal.
+
+No algorithm can solve it faster than O(n).
+
+💡 Interview Insight
+
+This problem teaches a very important pattern:
+
+“Contribution of each element in subarrays.”
+
+Same idea appears in problems like:
+
+Largest rectangle in histogram
+
+Sum of subarray maximums
+
+Range sum of subarrays
