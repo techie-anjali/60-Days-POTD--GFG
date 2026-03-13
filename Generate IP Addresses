@@ -1,0 +1,477 @@
+class Solution {
+    public ArrayList<String> generateIp(String s) {
+    
+        ArrayList<String> res = new ArrayList<>();
+        int n = s.length();
+
+        for(int i=1;i<=3;i++){
+            for(int j=1;j<=3;j++){
+                for(int k=1;k<=3;k++){
+
+                    if(i+j+k < n && i+j+k+3 >= n){
+
+                        String a = s.substring(0,i);
+                        String b = s.substring(i,i+j);
+                        String c = s.substring(i+j,i+j+k);
+                        String d = s.substring(i+j+k);
+
+                        if(valid(a) && valid(b) && valid(c) && valid(d)){
+                            res.add(a+"."+b+"."+c+"."+d);
+                        }
+                    }
+
+                }
+            }
+        }
+
+        return res;
+    }
+
+    boolean valid(String s){
+        if(s.length()>1 && s.charAt(0)=='0') return false;
+
+        int num = Integer.parseInt(s);
+        return num>=0 && num<=255;
+    }
+}
+        
+       
+
+
+
+
+#explanation:
+
+
+I’ll explain the **loop solution code line-by-line** in **clear points**.
+
+---
+
+# Full Code
+
+```java
+class Solution {
+    public ArrayList<String> restoreIpAddresses(String s) {
+        ArrayList<String> res = new ArrayList<>();
+        int n = s.length();
+
+        if(n < 4 || n > 12) return res;
+
+        for(int i=1;i<=3;i++){
+            for(int j=1;j<=3;j++){
+                for(int k=1;k<=3;k++){
+
+                    if(i+j+k < n && i+j+k+3 >= n){
+
+                        String a = s.substring(0,i);
+                        String b = s.substring(i,i+j);
+                        String c = s.substring(i+j,i+j+k);
+                        String d = s.substring(i+j+k);
+
+                        if(valid(a) && valid(b) && valid(c) && valid(d)){
+                            res.add(a+"."+b+"."+c+"."+d);
+                        }
+                    }
+                }
+            }
+        }
+
+        return res;
+    }
+
+    boolean valid(String s){
+        if(s.length()>1 && s.charAt(0)=='0') return false;
+
+        int num = Integer.parseInt(s);
+        return num>=0 && num<=255;
+    }
+}
+```
+
+---
+
+# 1️⃣ Class Definition
+
+```java
+class Solution {
+```
+
+We create a class named **Solution** because most coding platforms require it.
+
+---
+
+# 2️⃣ Function Definition
+
+```java
+public ArrayList<String> restoreIpAddresses(String s)
+```
+
+This function:
+
+* takes **string s**
+* returns **list of valid IP addresses**
+
+Example return:
+
+```
+["25.56.78.166", "255.6.78.166"]
+```
+
+---
+
+# 3️⃣ Result List
+
+```java
+ArrayList<String> res = new ArrayList<>();
+```
+
+We create an **ArrayList** to store all valid IP addresses.
+
+Example stored values:
+
+```
+25.56.78.166
+255.6.78.166
+255.67.8.166
+```
+
+---
+
+# 4️⃣ Length of String
+
+```java
+int n = s.length();
+```
+
+Store the **length of string**.
+
+Example
+
+```
+s = "255678166"
+n = 9
+```
+
+---
+
+# 5️⃣ Important Optimization
+
+```java
+if(n < 4 || n > 12) return res;
+```
+
+Reason:
+
+IP address has **4 parts**.
+
+Each part can have **1–3 digits**.
+
+So total digits must be:
+
+```
+minimum = 4
+maximum = 12
+```
+
+If not in this range → **no valid IP possible**.
+
+---
+
+# 6️⃣ First Loop (First Part Length)
+
+```java
+for(int i=1;i<=3;i++)
+```
+
+This loop chooses **length of first part**.
+
+Possible lengths:
+
+```
+1 digit
+2 digits
+3 digits
+```
+
+Example
+
+```
+i = 2 → first part = "25"
+```
+
+---
+
+# 7️⃣ Second Loop (Second Part Length)
+
+```java
+for(int j=1;j<=3;j++)
+```
+
+This decides **length of second part**.
+
+Example
+
+```
+j = 2 → second part = "56"
+```
+
+---
+
+# 8️⃣ Third Loop (Third Part Length)
+
+```java
+for(int k=1;k<=3;k++)
+```
+
+This decides **third part length**.
+
+Example
+
+```
+k = 2 → third part = "78"
+```
+
+The **remaining digits** become the **fourth part**.
+
+---
+
+# 9️⃣ Important Condition
+
+```java
+if(i+j+k < n && i+j+k+3 >= n)
+```
+
+Why?
+
+We must ensure **fourth part length is between 1 and 3**.
+
+Fourth part length:
+
+```
+n - (i+j+k)
+```
+
+So it must satisfy:
+
+```
+1 ≤ n-(i+j+k) ≤ 3
+```
+
+That is equivalent to:
+
+```
+i+j+k < n
+i+j+k+3 >= n
+```
+
+---
+
+# 🔟 Extract First Part
+
+```java
+String a = s.substring(0,i);
+```
+
+Take characters from **index 0 to i-1**.
+
+Example
+
+```
+s = "255678166"
+i = 2
+
+a = "25"
+```
+
+---
+
+# 1️⃣1️⃣ Extract Second Part
+
+```java
+String b = s.substring(i,i+j);
+```
+
+Example
+
+```
+i = 2
+j = 2
+
+b = "56"
+```
+
+---
+
+# 1️⃣2️⃣ Extract Third Part
+
+```java
+String c = s.substring(i+j,i+j+k);
+```
+
+Example
+
+```
+c = "78"
+```
+
+---
+
+# 1️⃣3️⃣ Extract Fourth Part
+
+```java
+String d = s.substring(i+j+k);
+```
+
+This means **from index (i+j+k) to end**.
+
+Example
+
+```
+d = "166"
+```
+
+---
+
+# 1️⃣4️⃣ Check Validity
+
+```java
+if(valid(a) && valid(b) && valid(c) && valid(d))
+```
+
+We check all **4 parts**.
+
+Rules:
+
+```
+0 ≤ number ≤ 255
+No leading zero
+```
+
+---
+
+# 1️⃣5️⃣ Add Valid IP
+
+```java
+res.add(a+"."+b+"."+c+"."+d);
+```
+
+Join parts with `"."`.
+
+Example result:
+
+```
+25.56.78.166
+```
+
+Added to list.
+
+---
+
+# 1️⃣6️⃣ Return Result
+
+```java
+return res;
+```
+
+Return **all valid IP addresses**.
+
+---
+
+# 1️⃣7️⃣ Valid Function
+
+```java
+boolean valid(String s)
+```
+
+Checks if a part is valid.
+
+---
+
+## Check Leading Zero
+
+```java
+if(s.length()>1 && s.charAt(0)=='0')
+```
+
+Examples
+
+```
+"0"  ✔ valid
+"01" ✘ invalid
+```
+
+---
+
+## Convert to Number
+
+```java
+int num = Integer.parseInt(s);
+```
+
+Example
+
+```
+"255" → 255
+```
+
+---
+
+## Range Check
+
+```java
+return num>=0 && num<=255;
+```
+
+Valid range:
+
+```
+0 to 255
+```
+
+---
+
+# Example Walkthrough
+
+Input
+
+```
+s = "255678166"
+```
+
+One iteration:
+
+```
+i = 2
+j = 2
+k = 2
+```
+
+Parts
+
+```
+a = 25
+b = 56
+c = 78
+d = 166
+```
+
+Valid → store
+
+```
+25.56.78.166
+```
+
+---
+
+✅ Final Output
+
+```
+[
+25.56.78.166
+255.6.78.166
+255.67.8.166
+255.67.81.66
+]
+```
+
+---
