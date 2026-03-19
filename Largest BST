@@ -1,0 +1,55 @@
+// class Node
+// {
+//     int data;
+//     Node left, right;
+
+//     public Node(int d)
+//     {
+//         data = d;
+//         left = right = null;
+//     }
+// }
+
+class Solution {
+
+    static class NodeInfo {
+        int min, max, size;
+
+        NodeInfo(int min, int max, int size) {
+            this.min = min;
+            this.max = max;
+            this.size = size;
+        }
+    }
+
+    // Return the size of the largest sub-tree which is also a BST
+    static int largestBst(Node root) {
+        return helper(root).size;
+    }
+
+    static NodeInfo helper(Node root) {
+        // Base case
+        if (root == null) {
+            return new NodeInfo(Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
+        }
+
+        NodeInfo left = helper(root.left);
+        NodeInfo right = helper(root.right);
+
+        // Check BST condition
+        if (left.max < root.data && root.data < right.min) {
+            int min = Math.min(root.data, left.min);
+            int max = Math.max(root.data, right.max);
+            int size = left.size + right.size + 1;
+
+            return new NodeInfo(min, max, size);
+        }
+
+        // Not a BST
+        return new NodeInfo(
+            Integer.MIN_VALUE,
+            Integer.MAX_VALUE,
+            Math.max(left.size, right.size)
+        );
+    }
+}
