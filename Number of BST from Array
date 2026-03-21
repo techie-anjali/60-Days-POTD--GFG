@@ -1,0 +1,39 @@
+import java.util.*;
+
+class Solution {
+    public ArrayList<Integer> countBSTs(int[] arr) {
+        int n = arr.length;
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        // Step 1: Copy & sort
+        int[] sorted = arr.clone();
+        Arrays.sort(sorted);
+
+        // Step 2: Map value → index
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            map.put(sorted[i], i);
+        }
+
+        // Step 3: Catalan
+        long[] catalan = new long[n + 1];
+        catalan[0] = 1;
+        if (n > 1) catalan[1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            for (int j = 0; j < i; j++) {
+                catalan[i] += catalan[j] * catalan[i - j - 1];
+            }
+        }
+
+        // Step 4: Build answer in ORIGINAL order
+        for (int i = 0; i < n; i++) {
+            int idx = map.get(arr[i]);
+            int left = idx;
+            int right = n - idx - 1;
+            ans.add((int)(catalan[left] * catalan[right]));
+        }
+
+        return ans;
+    }
+}
